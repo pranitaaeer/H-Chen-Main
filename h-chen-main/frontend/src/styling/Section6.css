@@ -1,0 +1,36 @@
+.hero-container {
+  width: 100%;
+  height: 90%; /* Full screen */
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive video */
+.vd {
+  /* top: 50%;
+  left: 50%; */
+  max-width: 100%;
+  max-height: 80%;
+
+  object-fit: fill;
+  filter: brightness(0.9); /* Optional: dim video for text on top */
+}
+
+/* Optional for mobile */
+@media (max-width: 768px) {
+  .hero-container {
+    height: 60vh;
+    padding-top: 30px;
+    background-color: black;
+  }
+  .vd {
+    /* top: 50%;
+  left: 50%; */
+    max-width: 100%;
+    max-height: 110%;
+
+    object-fit: fill;
+    /* filter: brightness(1); Optional: dim video for text on top */
+  }
+}

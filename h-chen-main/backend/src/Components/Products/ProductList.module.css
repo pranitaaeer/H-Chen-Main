@@ -1,0 +1,119 @@
+/* src/components/ProductList.module.css */
+
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+}
+
+.header {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  letter-spacing: 1px;
+}
+
+.tableContainer {
+  overflow-x: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.productTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; /* Ensure table doesn't get too squished on smaller screens */
+}
+
+.productTable th,
+.productTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.productTable th {
+  background-color: #eef1f4;
+  color: #555;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.productTable tr:hover {
+  background-color: #f5f5f5;
+}
+
+.productTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.productImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 8px;
+  border: 1px solid #eee;
+}
+
+.actions {
+  display: flex;
+  height: 100%;
+  gap: 8px;
+}
+
+.actionButton {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.newBadge {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.priceDisplay {
+  white-space: nowrap; /* Prevents price from wrapping */
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 5px;
+}
+
+.salePrice {
+  color: #dc3545;
+  font-weight: bold;
+}

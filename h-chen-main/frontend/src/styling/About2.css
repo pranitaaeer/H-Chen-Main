@@ -1,0 +1,31 @@
+.about2-container {
+  padding: 20px 0;
+}
+
+.about2vd {
+  width: 100vw;
+  height: 90vh;
+  object-fit: cover;
+  object-position: top center;
+  /* max-width: 100%; */
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about2-image {
+    height: auto;
+    width: 90vw;
+    object-fit: contain;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about2-image {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+  }
+}

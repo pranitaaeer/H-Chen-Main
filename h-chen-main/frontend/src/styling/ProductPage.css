@@ -1,0 +1,15 @@
+.product-card img {
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-card .card-title {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+}
+
+.product-card .card-text {
+  font-weight: bold;
+}
+

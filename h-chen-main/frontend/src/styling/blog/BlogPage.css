@@ -1,0 +1,20 @@
+/* Container for the responsive grid */
+.blog-container {
+  display: grid;
+  gap: 30px; /* Adjust the spacing between cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Styles for the individual cards */
+.blog-card {
+  break-inside: avoid;
+  margin-bottom: 40px; /* Kept your original margin for spacing */
+}
+
+/* Additional responsive adjustments (optional but recommended) */
+/* Reduce top margin for smaller screens */
+@media (max-width: 768px) {
+  .blog-card {
+    margin-bottom: 20px;
+  }
+}

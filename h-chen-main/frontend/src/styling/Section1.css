@@ -1,0 +1,415 @@
+.hero-model-img {
+  /* height: 120vh; /* Remove or comment out this line */
+  max-height: 150vh; /* Limit the maximum height to the viewport height */
+  width: 95%;
+  object-fit: contain; /* Use 'contain' to ensure the whole image is visible, or 'cover' if you want it to fill and crop */
+  display: block; /* Helps with centering */
+  margin: auto; /* Centers the image horizontally */
+}
+.hero-word {
+  font-size: 9rem;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  line-height: 0.9;
+}
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-orientation: mixed;
+  background-color: #f9e084;
+  letter-spacing: normal;
+  padding: 12px;
+  border-radius: 15px; /* More pronounced rounded corners */
+  width: 80px;
+  height: fit-content;
+  display: inline-block;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.5;
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Softer border */
+  color: black;
+  font-family: Arial, sans-serif;
+  margin-right: 30px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  font-weight: bold; /* Make the text bolder */
+  position: relative; /* Needed for positioning the asterisk */
+}
+
+.asterisk-icon {
+  position: absolute;
+  bottom: -10px; /* Adjust top and left to position it correctly */
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.asterisk-icon::before {
+  content: " ";
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>');
+  background-size: cover;
+  width: 18px;
+  height: 18px;
+}
+/* .starts {
+  padding-right: 30px;
+} */
+
+.sale-badge {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.inner-circle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #ff9364; /* orange-peach */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-circle .discount {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.inner-circle .text {
+  font-size: 0.7rem;
+}
+
+.circular-text {
+  width: 100%;
+  height: 100%;
+  fill: white;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transform: rotate(-10deg); /* adjust rotation */
+}
+
+.hero-text-left,
+.hero-text-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-text-left {
+  text-align: right;
+  color: black;
+}
+
+.hero-text-right {
+  color: #555;
+}
+
+.hero-section {
+  min-height: 150vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+.discover-text {
+  text-align: center;
+}
+
+.left-side-text {
+  margin-right: -120px;
+}
+
+.right-side-text {
+  margin-left: -120px;
+}
+.discover-text {
+  width: fit-content;
+  margin-left: 100px;
+  margin-top: 20px;
+  text-align: start;
+}
+body,
+html {
+  overflow-x: hidden;
+}
+
+.sale-badge {
+  position: absolute;
+  bottom: -200px; /* push it below the HERE text */
+  left: 20px; /* adjust horizontally */
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.sale-badge .inner-circle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #ff9364;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sale-badge .inner-circle .discount {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.sale-badge .inner-circle .text {
+  font-size: 0.8rem;
+}
+
+.sale-badge .circular-text {
+  width: 100%;
+  height: 100%;
+  fill: white;
+  font-size: 12px;
+  font-weight: bold;
+  /* letter-spacing: 2px; */
+  transform: rotate(-10deg);
+}
+.discover-text {
+  position: absolute;
+  top: 68%;
+  left: 7%;
+  margin-top: 10px; /* little spacing */
+  margin-left: 0; /* remove forced offset */
+  font-size: 20px;
+  line-height: 1.5;
+  max-width: 300px;
+}
+
+.circular-text {
+  width: 200px;
+  height: 200px;
+  transform: rotate(-90deg); /* Start from top */
+}
+
+.circle-marquee {
+  font-size: 14px;
+  text-transform: uppercase;
+  animation: textFlow 15s linear infinite;
+}
+
+@keyframes textFlow {
+  0% {
+    startoffset: 0%;
+  }
+  100% {
+    startoffset: 100%;
+  }
+}
+
+/* Mobile: reset so it flows normally */
+@media (max-width: 768px) {
+  .discover-text {
+    position: static; /* go back to normal flow */
+    margin: 1rem auto 0;
+    text-align: center;
+    max-width: 90%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    min-height: auto;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .hero-word {
+    font-size: 4rem;
+    line-height: 1.1;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  .hero-model-img {
+    height: 260px;
+    max-height: 65vh;
+    width: auto;
+    margin: 1.5rem auto;
+    object-fit: contain;
+  }
+
+  .hero-text-left,
+  .hero-text-right {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .left-side-text,
+  .right-side-text {
+    margin: 0;
+  }
+
+  .starts {
+    padding-right: 0;
+    display: block;
+    margin: 0 auto 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sale-badge {
+    position: static; /* remove absolute positioning */
+    margin: 20px auto 0; /* center horizontally */
+    display: flex;
+  }
+}
+/* Tiny phones */
+/* @media (max-width: 480px) {
+  .hero-word {
+    font-size: 5rem;
+  }
+
+  .hero-model-img {
+    height: 200px;
+  }
+} */
+
+/* Mobile wrapper */
+.mobile-hero {
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Headline block */
+.mobile-heading {
+  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
+  text-transform: uppercase;
+  font-size: 3rem;
+  margin-right: 0;
+  line-height: 1;
+  margin-bottom: 1rem;
+  color: #444;
+  letter-spacing: -0.05em;
+}
+
+.mobile-heading .highlight {
+  color: #000; /* black highlight for "YOUR" and "STARTS" */
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Discover text */
+.mobile-hero .discover-text {
+  font-size: 1rem;
+  color: #444;
+  margin: 0 auto 1.5rem;
+  max-width: 100%;
+}
+
+/* Image with badge */
+.mobile-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Sale badge placement */
+.mobile-image-container .sale-badge {
+  position: absolute;
+  bottom: 50%;
+  right: -80%;
+  width: 100px;
+  height: 100px;
+  background: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-image-container .sale-badge .inner-circle {
+  width: 60px;
+  height: 60px;
+  background: #ff9364;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-image-container .sale-badge .discount {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.mobile-image-container .sale-badge .text {
+  font-size: 0.6rem;
+}
+
+.mobile-image-container .circular-text {
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  fill: white;
+  /* letter-spacing: 1.5px; */
+}
+
+.mobile-image-container .hero-model-img {
+  max-height: 150vh; /* Limit the maximum height to the viewport height */
+  width: 100%;
+  object-fit: contain; /* Use 'contain' to ensure the whole image is visible, or 'cover' if you want it to fill and crop */
+  display: block; /* Helps with centering */
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-model-img {
+    width: 90%; /* take most of the screen width */
+    max-width: 400px; /* optional: cap it so it doesn’t get too huge */
+    height: auto; /* let height scale naturally */
+    margin: 1.5rem auto;
+    object-fit: contain;
+  }
+}
+
+.rotate-text {
+  animation: rotateAround 12s linear infinite;
+  transform-origin: 50% 50%; /* center of the svg */
+}
+
+@keyframes rotateAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

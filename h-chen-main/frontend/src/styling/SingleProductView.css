@@ -1,0 +1,10 @@
+.product-detail-page img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-detail-page .form-select {
+  border-radius: 0;
+}

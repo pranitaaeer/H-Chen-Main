@@ -1,0 +1,261 @@
+/* src/components/ProductForm.module.css */
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space-y-4 */
+  padding: 1.5rem; /* p-6 */
+  background-color: #fff; /* bg-white */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  border-radius: 0.5rem; /* rounded-lg */
+  max-width: 42rem; /* max-w-2xl */
+  margin-left: auto; /* mx-auto */
+  margin-right: auto; /* mx-auto */
+  margin-top: 2rem; /* my-8 */
+  margin-bottom: 2rem; /* my-8 */
+}
+
+.formTitle {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 1rem; /* mb-4 */
+  text-align: center; /* text-center */
+  color: #374151; /* text-gray-800 */
+}
+
+.label {
+  display: block; /* block */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #374151; /* text-gray-700 */
+}
+
+.input,
+.textarea {
+  margin-top: 0.25rem; /* mt-1 */
+  display: block; /* block */
+  width: 100%; /* w-full */
+  border: 1px solid #d1d5db; /* border border-gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  padding: 0.5rem; /* p-2 */
+  /* focus styles */
+  outline: none;
+  border-color: #6366f1; /* focus:border-indigo-500 */
+  box-shadow: 0 0 0 1px #6366f1; /* focus:ring-indigo-500 */
+}
+
+.errorText {
+  color: #ef4444; /* text-red-500 */
+  font-size: 0.75rem; /* text-xs */
+  margin-top: 0.25rem; /* mt-1 */
+}
+
+.checkboxContainer {
+  display: flex; /* flex */
+  align-items: center; /* items-center */
+}
+
+.checkboxInput {
+  height: 1rem; /* h-4 */
+  width: 1rem; /* w-4 */
+  color: #4f46e5; /* text-indigo-600 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.25rem; /* rounded */
+  /* focus styles */
+  outline: none;
+  border-color: #6366f1; /* focus:ring-indigo-500 */
+  box-shadow: 0 0 0 1px #6366f1; /* focus:ring-indigo-500 */
+}
+
+.checkboxLabel {
+  margin-left: 0.5rem; /* ml-2 */
+  display: block; /* block */
+  font-size: 0.875rem; /* text-sm */
+  color: #111827; /* text-gray-900 */
+}
+
+.dropzone {
+  border: 2px dashed #d1d5db; /* border-2 border-dashed border-gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 1.5rem; /* p-6 */
+  text-align: center; /* text-center */
+  cursor: pointer; /* cursor-pointer */
+  transition-property: border-color, background-color; /* transition-colors */
+  transition-duration: 150ms; /* default for transition-colors */
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* default ease-in-out */
+}
+
+.dropzoneActive {
+  border-color: #6366f1; /* border-indigo-500 */
+  background-color: #eef2ff; /* bg-indigo-50 */
+}
+
+.dropzoneText {
+  color: #374151; /* text-gray-700 */
+}
+
+.dropzonePlaceholder {
+  color: #6b7280; /* text-gray-500 */
+}
+
+.selectedFilesTitle {
+  font-weight: 600; /* font-semibold */
+  color: #374151; /* text-gray-700 */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.fileList {
+  list-style: disc; /* list-disc */
+  list-style-position: inside; /* list-inside */
+  font-size: 0.875rem; /* text-sm */
+  color: #4b5563; /* text-gray-600 */
+}
+
+.submitButton {
+  width: 100%; /* w-full */
+  background-color: #2563eb; /* bg-blue-600 */
+  color: #fff; /* text-white */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  border-radius: 0.375rem; /* rounded-md */
+  transition-property: background-color; /* transition-colors */
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  border: none; /* Remove default button border */
+  cursor: pointer;
+
+  /* Hover styles */
+  &:hover {
+    background-color: #1d4ed8; /* hover:bg-blue-700 */
+  }
+
+  /* Focus styles */
+  &:focus {
+    outline: 2px solid transparent; /* focus:outline-none */
+    outline-offset: 2px; /* focus:ring-offset-2 */
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+  }
+
+  /* Disabled styles */
+  &:disabled {
+    opacity: 0.5; /* disabled:opacity-50 */
+    cursor: not-allowed; /* disabled:cursor-not-allowed */
+  }
+}
+
+.messageContainer {
+  margin-top: 1rem; /* mt-4 */
+  text-align: center; /* text-center */
+}
+
+.successMessage {
+  color: #16a34a; /* text-green-600 */
+}
+
+.errorMessage {
+  color: #dc2626; /* text-red-600 */
+}
+
+/* src/components/ProductForm.module.css */
+
+/* ... (your existing CSS rules) ... */
+
+.imagePreviewsContainer {
+  margin-top: 1rem; /* Adjust as needed */
+}
+
+.imagePreviewsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid */
+  gap: 1rem; /* Gap between images */
+  margin-top: 0.5rem;
+}
+
+.imagePreviewItem {
+  position: relative;
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  overflow: hidden;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 80px; /* Fixed height for previews */
+  object-fit: contain; /* Ensures the whole image is visible */
+  border-radius: 0.25rem;
+}
+
+.removeImageButton {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: #ef4444; /* red-500 */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.removeImageButton:hover {
+  opacity: 1;
+  background-color: #dc2626; /* red-600 */
+}
+
+.imageName {
+  font-size: 0.75rem; /* text-xs */
+  color: #6b7280; /* text-gray-500 */
+  margin-top: 0.5rem;
+  text-align: center;
+  word-break: break-all; /* Break long file names */
+}
+
+/* Make sure .selectedFilesTitle is also defined */
+.selectedFilesTitle {
+  font-weight: 600; /* font-semibold */
+  color: #374151; /* text-gray-700 */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+/* ... (rest of your CSS) ... */
+
+/* src/components/ProductForm.module.css */
+
+/* ... (your existing CSS rules) ... */
+
+.input,
+.textarea,
+.select { /* ADDED .select HERE */
+  margin-top: 0.25rem;
+  display: block;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 0.5rem;
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px #6366f1;
+}
+
+.loadingText { /* NEW: for loading state */
+    color: #4b5563; /* text-gray-600 */
+    font-size: 0.875rem; /* text-sm */
+    margin-top: 0.25rem;
+}
+
+/* ... (rest of your CSS) ... */

@@ -1,0 +1,102 @@
+/* Outer container centers everything */
+.comingsoon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  margin-top: 10vh;
+  height: 60vh;
+  background-color: #fff;
+}
+
+/* Circle animation container */
+.circle-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  overflow: visible;
+}
+
+/* Outward expanding ring */
+.outer-ring {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  background-color: transparent;
+  z-index: 1;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Inner solid circle */
+.inner-circle {
+  width: 115px;
+  height: 115px;
+  background-color: black;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Text BELOW the animation */
+.circle-text {
+  color: black;
+
+  /* font-weight: 600; */
+  font-size: 2rem;
+  margin-top: 2rem;
+  z-index: 3;
+}
+
+/* ======================== */
+/* RESPONSIVE STYLING BELOW */
+/* ======================== */
+
+@media (max-width: 992px) {
+  .circle-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .inner-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .circle-text {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .circle-wrapper {
+    width: 90px;
+    height: 90px;
+    margin-top: 50px;
+  }
+
+  .inner-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .circle-text {
+    font-size: 1.7rem;
+    margin-top: 3rem;
+  }
+
+  .comingsoon-wrapper {
+    margin-top: 5vh;
+    height: 80vh;
+  }
+  .emailinput {
+    width: 60vw;
+  }
+}

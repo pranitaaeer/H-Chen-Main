@@ -1,0 +1,12 @@
+.browse-sidebar {
+  border-right: 1px solid #ddd;
+  min-height: 100%;
+}
+
+.accordion-button {
+  font-size: 0.95rem;
+}
+.accordion-body div {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}

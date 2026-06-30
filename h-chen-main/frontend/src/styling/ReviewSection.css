@@ -1,0 +1,159 @@
+.testimonial-section {
+  padding: 60px 80px;
+  background-color: #f2f0ea;
+  display: flex;
+  gap: 60px;
+  font-family: "Georgia", serif;
+}
+
+.testimonial-left {
+  flex: 1;
+  max-width: 300px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.carousel-controls button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.testimonial-carousel {
+  flex: 3;
+  display: flex;
+  gap: 24px;
+  transition: all 0.4s ease;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 30px;
+  flex: 1;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.testimonial-text {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.stars {
+  color: #f5d67b;
+  margin-bottom: 16px;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.author {
+  color: #333;
+}
+
+.testimonial-carousel {
+  flex: 3;
+  display: flex;
+  gap: 24px;
+  transition: all 0.4s ease;
+  position: relative; /* Required for AnimatePresence transitions */
+  overflow: hidden; /* Prevent overflow on slide-out */
+}
+
+.testimonial-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card {
+  min-width: 280px; /* Ensures animation works on smaller screens too */
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 992px) {
+  .testimonial-section {
+    flex-direction: column;
+    padding: 40px 30px;
+    gap: 40px;
+  }
+
+  .testimonial-left {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .carousel-controls {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .testimonial-carousel {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .testimonial-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 24px;
+  }
+
+  .testimonial-text {
+    font-size: 18px;
+  }
+
+  .stars {
+    font-size: 16px;
+  }
+
+  .author {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonial-section {
+    padding: 30px 20px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .testimonial-text {
+    font-size: 16px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+  }
+
+  .carousel-controls span {
+    font-size: 14px;
+  }
+}

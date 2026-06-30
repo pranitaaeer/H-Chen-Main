@@ -1,0 +1,65 @@
+.team-heading {
+  /* font-weight: 600; */
+  letter-spacing: 1px;
+}
+
+.team-name {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.team-description {
+  font-size: 1.4rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.team-contact {
+  margin-top: 15px;
+  font-size: 1rem;
+}
+
+.team-img {
+  max-width: 120px;
+  border-radius: 5px;
+}
+
+hr {
+  border-top: 1px solid #aaa;
+}
+
+.about4-wrapper {
+  font-family: "Cormorant Garamond", serif;
+  background-color: #fff;
+  color: #3e3e3e;
+}
+
+.team-heading {
+  font-family: "Libertinus";
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background-color: #c2b8b0;
+  border: none;
+  margin: 0 auto 2rem auto;
+}
+
+.founder-paragraph {
+  font-size: 1.2rem;
+  /* line-height: 1.8; */
+}
+
+.founder-paragraph.italic {
+  font-style: italic;
+}
+
+.founder-signature {
+  font-size: 1.25rem;
+  color: #a67c6b;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

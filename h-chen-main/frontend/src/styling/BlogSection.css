@@ -1,0 +1,109 @@
+src/components/ArticlesSection.css .article-wrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.article-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.with-overlay img {
+  filter: brightness(65%);
+}
+
+.article-content {
+  padding: 20px;
+  background-color: white;
+}
+
+/* .overlay-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background: none;
+  padding: 0;
+} */
+
+.article-category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.article-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: inherit;
+}
+
+.article-date {
+  font-size: 0.9rem;
+  color: inherit;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+/* Read More Button */
+.read-more-btn {
+  border: 1px solid #000;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+/* Zoom effect on image hover */
+
+.zoom-hover img {
+  transition: transform 0.6s ease;
+}
+
+.zoom-hover:hover img {
+  transform: scale(1.05);
+}
+
+.article-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Overlay style for first post */
+.with-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+}
+
+.article-content {
+  position: relative;
+  padding: 10px 0;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: #fff; /* white text */
+  z-index: 2;
+  background-color: transparent;
+}
+
+.overlay-text p,
+.overlay-text h5 {
+  margin: 0;
+  color: #fff !important;
+}

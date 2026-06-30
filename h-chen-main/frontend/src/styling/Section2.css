@@ -1,0 +1,65 @@
+
+.section2-heading {
+  font-size: 4rem;
+  color: #2c2c2c;
+  letter-spacing: 1.5px;
+}
+
+.about-image {
+  max-height: 480px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.story-block {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.our-story-title {
+  font-size: 1.5rem;
+  font-family: "Geo", sans-serif;
+  font-weight: 600;
+  color: #222;
+}
+
+.our-story-button {
+  font-family: "Geo", sans-serif;
+  font-weight: bold;
+}
+.our-story-content {
+  font-size: 1.2rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .section2 {
+    text-align: center;
+  }
+  .section2-heading {
+    font-size: 2rem;
+  }
+
+  .about-image {
+    max-height: 400px;
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .our-story-title,
+  .our-story-content {
+    text-align: center;
+  }
+
+  .btn {
+    display: block;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,58 @@
+#about3section {
+  background-color: black;
+  padding-bottom: 20px;
+  color: white;
+}
+
+/* Title size adjusts for smaller screens */
+.about-title {
+  font-size: 60px;
+}
+
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 36px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-title {
+    font-size: 28px;
+  }
+
+  #about3section {
+    background-color: black;
+    padding-bottom: 10px;
+    
+    color: white;
+  }
+}
+
+/* Make content flexible and wrap if needed */
+.about3content {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 10px; */
+}
+.points > li {
+  text-align: left;
+}
+
+/* Adjust font-size on smaller devices */
+@media (max-width: 768px) {
+  .about3content {
+    font-size: 18px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .about3content {
+    font-size: 16px;
+    /* padding: 5px; */
+    text-align: center;
+  }
+}
