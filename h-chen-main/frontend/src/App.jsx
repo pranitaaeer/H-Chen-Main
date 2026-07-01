@@ -31,6 +31,7 @@ import TermsandConditions from "./pages/footer/TermsandConditions";
 import ShippingPolicy from "./pages/footer/ShippingPolicy";
 import ComingSoon from "./pages/ComingSoon";
 
+
 function App() {
   const { isAuthenticated, token } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
