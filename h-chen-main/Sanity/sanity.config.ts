@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Sanity',
 
-  projectId: 'm7haexyk',
+  projectId: '0ypfspcb',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
