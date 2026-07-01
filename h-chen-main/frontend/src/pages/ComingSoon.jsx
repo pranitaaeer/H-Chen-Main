@@ -16,10 +16,10 @@ const ComingSoon = () => {
 
     emailjs
       .sendForm(
-        "service_pugjt45", // 🔹 Replace with your EmailJS Service ID
-        "template_el3rm98", // 🔹 Replace with your EmailJS Template ID
+        "service_nltfe9r", // 🔹 Replace with your EmailJS Service ID
+        "template_6498e3p", // 🔹 Replace with your EmailJS Template ID
         formRef.current,
-        "ujOdlGoJ4RBbGcoqC" // 🔹 Replace with your EmailJS Public Key
+        "TAd-nVfSgtOLniW73" // 🔹 Replace with your EmailJS Public Key
       )
       .then(
         (result) => {
