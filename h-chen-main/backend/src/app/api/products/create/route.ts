@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/db";
 import Products from "@/models/Products";
 import { revalidatePath } from "next/cache";
-import { utapi } from "@/utils/uploadthing";
+// import { utapi } from "@/utils/uploadthing";
+import { getUTApi } from "@/utils/uploadthing";
 
+const utapi = getUTApi();
 const errorResponse = (
   message: string,
   status: number = 500,
