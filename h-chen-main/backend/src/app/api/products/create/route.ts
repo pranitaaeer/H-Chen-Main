@@ -40,16 +40,21 @@ export const POST = async (request: NextRequest) => {
         .map((s) => s.trim())
         .filter((s) => s !== "") || [];
 
-    const imageFiles: File[] = [];
-    for (const [key, value] of formData.entries()) {
-      if (key === "images" && value instanceof Blob) {
-        const filename =
-          (value as File).name ||
-          `uploaded_image_${Date.now()}.${value.type.split("/")[1] || "png"}`;
-        imageFiles.push(new File([value], filename, { type: value.type }));
-      }
-    }
+    // const imageFiles: File[] = [];
+    // for (const [key, value] of formData.entries()) {
+    //   if (key === "images" && value instanceof Blob) {
+    //     const filename =
+    //       (value as File).name ||
+    //       `uploaded_image_${Date.now()}.${value.type.split("/")[1] || "png"}`;
+    //     imageFiles.push(new File([value], filename, { type: value.type }));
+    //   }
+    // }
 
+    const imageFiles = formData.getAll("images") as File[];
+
+    if (!imageFiles.length) {
+      return errorResponse("No images provided", 400, request);
+    }
     if (!title || !description || !category || isNaN(price) || price <= 0) {
       return errorResponse(
         "Missing or invalid required fields (title, description, category, brand, price, bestBefore, tags)",
@@ -67,8 +72,8 @@ export const POST = async (request: NextRequest) => {
     }
 
     await connectToMongoDB();
- console.log("SECRET:", process.env.UPLOADTHING_SECRET);
-console.log("APP_ID:", process.env.UPLOADTHING_APP_ID);
+    console.log("SECRET:", process.env.UPLOADTHING_SECRET);
+    console.log("APP_ID:", process.env.UPLOADTHING_APP_ID);
     let uploadedImageUrls: string[] = [];
     try {
       // console.log("🖼️ Uploaded Image Files:", imageFiles);
@@ -78,8 +83,8 @@ console.log("APP_ID:", process.env.UPLOADTHING_APP_ID);
         .map((file) => file.data?.url)
         .filter((url): url is string => !!url);
 
-        // console.log("uploadedImageUrls", uploadedImageUrls);
-        
+      // console.log("uploadedImageUrls", uploadedImageUrls);
+
       if (uploadedImageUrls.length === 0) {
         return errorResponse(
           "Failed to upload images to Uploadthing.",
@@ -90,8 +95,7 @@ console.log("APP_ID:", process.env.UPLOADTHING_APP_ID);
     } catch (uploadError: any) {
       console.error("Error during Uploadthing upload:", uploadError);
       return errorResponse(
-        `Image upload failed: ${
-          uploadError.message || "Unknown upload error."
+        `Image upload failed: ${uploadError.message || "Unknown upload error."
         }`,
         500,
         request
@@ -107,7 +111,7 @@ console.log("APP_ID:", process.env.UPLOADTHING_APP_ID);
     //   price,
     //   stock
     // });
-    
+
 
     const newProduct = new Products({
       title,
