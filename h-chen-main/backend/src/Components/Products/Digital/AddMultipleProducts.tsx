@@ -75,7 +75,16 @@ export interface ProductValues {
 }
 const AddMultipleProducts = () => {
   const [productsLengthInDB, setProductsLengthInDB] = useState<number>(0);
-  const [products, setProducts] = useState<ProductValues[]>([]);
+  const [products, setProducts] = useState<ProductValues[]>([{
+    title: "Test Product",
+    description: "test",
+    category: "demo",
+    price: 100,
+    stock: 10,
+    colors: ["red"],
+    sizes: ["M"],
+    images: ["test.jpg"],
+  }]);
   const [isUploading, setIsUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
