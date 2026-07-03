@@ -1,24 +1,26 @@
 import { NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/db";
-import Products from "@/models/Products";
+import SpecialOfferProducts from "@/models/SpecialOfferProducts";
 
 export async function GET() {
   try {
     await connectToMongoDB();
 
-    const products = await Products.find().sort({ createdAt: -1 });
+    const products = await SpecialOfferProducts.find()
+      .populate("product")
+      .sort({ index: 1 });
 
     return NextResponse.json({
       success: true,
       data: products,
     });
   } catch (error) {
-    console.error("Error fetching all products:", error);
+    console.error(error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch products",
+        message: "Failed to fetch special offer products",
       },
       { status: 500 }
     );
