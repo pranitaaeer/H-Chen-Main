@@ -80,22 +80,40 @@ const AddMultipleProducts = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  useEffect(() => {
-    const fetchProductsLengthInDB = async () => {
-      try {
-        const res = await fetch("/api/products/get/get-products-length", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+  // useEffect(() => {
+  //   const fetchProductsLengthInDB = async () => {
+  //     try {
+  //       const res = await fetch("/api/products/get/get-products-length", {
+  //         method: "GET",
+  //         headers: { "Content-Type": "application/json" },
+  //       });
 
-        const data = await res.json();
-        setProductsLengthInDB(data.count);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProductsLengthInDB();
-  }, [productsLengthInDB]);
+  //       const data = await res.json();
+  //       setProductsLengthInDB(data.count);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchProductsLengthInDB();
+  // }, [productsLengthInDB]);
+
+  useEffect(() => {
+  const fetchProductsLengthInDB = async () => {
+    try {
+      const res = await fetch("/api/products/get/get-products-length", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+      setProductsLengthInDB(data.count);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchProductsLengthInDB();
+}, []);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -317,15 +335,15 @@ const AddMultipleProducts = () => {
   // }));
 
   const simplifiedProducts = products.map((product, index) => ({
-  id: index + 1,
-  image: product.images?.[0],
-  title: product.title,
-  category: product.category,
-  price: product.price,
-  stock: product.stock,
-  colors: product.colors?.join(", "),
-  sizes: product.sizes?.join(", "),
-}));
+    id: index + 1,
+    image: product.images?.[0],
+    title: product.title,
+    category: product.category,
+    price: product.price,
+    stock: product.stock,
+    colors: product.colors?.join(", "),
+    sizes: product.sizes?.join(", "),
+  }));
 
   // Helper functions to parse new fields
   // const parseHeroBanner = (
@@ -375,18 +393,35 @@ const AddMultipleProducts = () => {
   const handleSaveProducts = async () => {
     setIsSaving(true);
     try {
+      // const response = await fetch("/api/products/create/create-multiple", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(products),
+      // });
+
+      // if (response.ok) {
+      //   toast.success("Products saved successfully!");
+      //   setProducts([]);
+      // } else {
+      //   toast.error("Failed to save products");
+      // }
       const response = await fetch("/api/products/create/create-multiple", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(products),
       });
 
-      if (response.ok) {
-        toast.success("Products saved successfully!");
-        setProducts([]);
-      } else {
-        toast.error("Failed to save products");
+      const data = await response.json();
+
+      console.log("SAVE RESPONSE:", data);
+
+      if (!response.ok) {
+        toast.error(data.message || "Save failed");
+        return;
       }
+
+      toast.success(data.message);
+      setProducts([]);
     } catch (error) {
       toast.error("An error occurred while saving products");
       console.error(error);
