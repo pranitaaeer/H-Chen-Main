@@ -317,12 +317,15 @@ const AddMultipleProducts = () => {
   // }));
 
   const simplifiedProducts = products.map((product, index) => ({
-    id: index + 1,
-    title: product.title,
-    category: product.category,
-    price: product.price,
-    stock: product.stock,
-  }));
+  id: index + 1,
+  image: product.images?.[0],
+  title: product.title,
+  category: product.category,
+  price: product.price,
+  stock: product.stock,
+  colors: product.colors?.join(", "),
+  sizes: product.sizes?.join(", "),
+}));
 
   // Helper functions to parse new fields
   // const parseHeroBanner = (
