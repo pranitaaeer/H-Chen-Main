@@ -28,7 +28,7 @@ export const POST = async (request: NextRequest) => {
       perCustomer,
     } = await request.json();
 
-    // console.log(admin_id,name,code,description,startDate,endDate,discountType,quantity,freeShipping,status,productName,category,minSpend,maxSpend,perLimit,perCustomer);
+    console.log(admin_id,name,code,description,startDate,endDate,discountType,quantity,freeShipping,status,productName,category,minSpend,maxSpend,perLimit,perCustomer);
 
     await connectToMongoDB();
 
