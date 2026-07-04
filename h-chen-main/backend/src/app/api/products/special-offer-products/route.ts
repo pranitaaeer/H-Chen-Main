@@ -6,10 +6,8 @@ export async function GET() {
   try {
     await connectToMongoDB();
 
-    const specialOfferProducts = await SpecialOfferProducts.find()
-      .populate("product")
-      .sort({ index: 1 });
-
+    const specialOfferProducts = await SpecialOfferProducts.find().sort({ index: 1 });
+     
     return NextResponse.json(
       {
         success: true,
