@@ -7,7 +7,9 @@ export const GET = async (request: NextRequest) => {
   try {
     await connectToMongoDB();
 
-    const orders = await Order.find({});
+    const orders = await Order.find({})
+  .populate("user", "name email")
+  .populate("items.product", "title images");
 
     revalidatePath(request.url);
     return NextResponse.json(orders, { status: 200 });

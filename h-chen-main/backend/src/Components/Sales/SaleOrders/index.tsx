@@ -7,11 +7,12 @@ import CommonBreadcrumb from "@/CommonComponents/CommonBreadcrumb";
 import CommonCardHeader from "@/CommonComponents/CommonCardHeader";
 import Datatable from "@/CommonComponents/DataTable";
 // import { sampleOrders } from "@/Data/Order";
-import { OrderValues } from "@/Types/Layout";
+// import { OrderValues } from "@/Types/Layout";
 // import { SaleOrdersData } from "@/Data/Sales";
 
 const SalesOrders = () => {
-  const [orders, setOrders] = useState<OrderValues[]>([]);
+  // const [orders, setOrders] = useState<OrderValues[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,19 +52,24 @@ const SalesOrders = () => {
   );
   const [isEditing, setIsEditing] = useState<string>("");
 
-  const updateOrderStatus = async (
-    user_id: string,
-    order_id: string,
-    new_status: string
-  ): Promise<boolean> => {
-    try {
+  // const updateOrderStatus = async (
+  //   user_id: string,
+  //   order_id: string,
+  //   new_status: string
+  // ): Promise<boolean> => {
+
+   const updateOrderStatus = async (
+  order_id: string,
+  new_status: string
+):Promise<boolean> => {
+  try {
       const response = await fetch(`/api/order/update/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id,
+          // user_id,
           order_id,
           updated_status: new_status,
         }),
@@ -82,168 +88,213 @@ const SalesOrders = () => {
     }
   };
 
-  const allOrders =
-    orders &&
-    orders
-      ?.flatMap((user) =>
-        user?.orders?.map((order) => {
-          const orderId = order.order_info.order_id;
-          const userId = user?.user_id;
-          const status = orderStatuses[orderId] || order?.order_info?.status;
+  const allOrders = orders.map((order: any) => {
+    const status = orderStatuses[order._id] || order.status;
 
-          const statusColor = {
-            pending: "warning",
-            processing: "secondary",
-            shipped: "primary",
-            delivered: "success",
-            cancelled: "danger",
-          }[status];
+   const statusColor: Record<
+  "pending" | "processing" | "shipped" | "delivered" | "cancelled",
+  string
+> = {
+  pending: "warning",
+  processing: "secondary",
+  shipped: "primary",
+  delivered: "success",
+  cancelled: "danger",
+};
 
-          return {
-            order_id: orderId,
-            user: user.user_name,
-            products: order.products.length.toString(),
-            total_price: "₹" + order.order_info.total_price,
-            order_date: formatTimestamp(order.order_info.order_date.toString()),
-            status: (
-              <div style={{ position: "relative", userSelect: "none" }}>
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {isEditing === orderId ? (
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <select
-                        value={orderStatuses[orderId] || status}
-                        onChange={async (e) => {
-                          const newStatus = e.target.value;
-                          // calling the API to update the status in the database
-                          const isUpdated = await updateOrderStatus(
-                            userId.toString(),
-                            orderId.toString(),
-                            newStatus
-                          );
+const badgeColor =
+  statusColor[
+    (status as
+      | "pending"
+      | "processing"
+      | "shipped"
+      | "delivered"
+      | "cancelled")
+  ];
 
-                          if (isUpdated) {
-                            setOrderStatuses((prev) => ({
-                              ...prev,
-                              [orderId]: newStatus,
-                            }));
-                          }
-                          setIsEditing("");
-                        }}
-                        style={{
-                          width: "100%",
-                          cursor: "pointer",
-                          marginRight: "5px",
-                          padding: "5px 10px",
-                          borderRadius: "8px",
-                          border: "1px solid #ccc",
-                          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-                          transition: "border-color 0.3s, box-shadow 0.3s",
-                          color:
-                            {
-                              pending: "orange",
-                              processing: "blue",
-                              shipped: "green",
-                              delivered: "darkgreen",
-                              cancelled: "red",
-                            }[orderStatuses[orderId] || status] || "white",
-                        }}
-                      >
-                        <option
-                          value="pending"
-                          style={{ color: "white", backgroundColor: "orange" }}
-                        >
-                          Pending
-                        </option>
-                        <option
-                          value="processing"
-                          style={{ color: "white", backgroundColor: "blue" }}
-                        >
-                          Processing
-                        </option>
-                        <option
-                          value="shipped"
-                          style={{ color: "white", backgroundColor: "green" }}
-                        >
-                          Shipped
-                        </option>
-                        <option
-                          value="delivered"
-                          style={{
-                            color: "white",
-                            backgroundColor: "darkgreen",
-                          }}
-                        >
-                          Delivered
-                        </option>
-                        <option
-                          value="cancelled"
-                          style={{ color: "white", backgroundColor: "red" }}
-                        >
-                          Cancelled
-                        </option>
-                      </select>
-                      <span
-                        onClick={() => setIsEditing("")}
-                        title="Cancel"
-                        style={{
-                          color: "red",
-                          fontSize: "20px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        X
-                      </span>
-                    </div>
-                  ) : (
-                    <div
-                      title="Update Status"
-                      onClick={() => setIsEditing(orderId)}
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <Badge
-                        title={capitalizeHeader(status)}
-                        color={statusColor}
-                        style={{
-                          width: "100%",
-                          cursor: "pointer",
-                          marginRight: "5px",
-                        }}
-                      >
-                        {capitalizeHeader(status)}
-                      </Badge>
-                      <i className="fa fa-pencil"></i>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ),
-          };
-        })
-      )
-      .sort(
-        (a, b) =>
-          new Date(b.order_date).getTime() - new Date(a.order_date).getTime()
-      );
+    return {
+      order_id: order._id,
+
+      user:
+        typeof order.user === "object"
+          ? order.user?.name || order.user?.email
+          : order.user,
+
+      products: order.items.length,
+
+      total_price: `₹${order.totalPrice}`,
+
+      order_date: formatTimestamp(order.createdAt),
+
+      status: (
+        <Badge color={badgeColor} style={{ cursor: "pointer" }}>
+          {capitalizeHeader(status)}
+        </Badge>
+      ),
+    };
+  });
+  // const allOrders =
+  //   orders &&
+  //   orders
+  //     ?.flatMap((user) =>
+  //       user?.orders?.map((order) => {
+  //         const orderId = order.order_info.order_id;
+  //         const userId = user?.user_id;
+  //         const status = orderStatuses[orderId] || order?.order_info?.status;
+
+  //         const statusColor = {
+  //           pending: "warning",
+  //           processing: "secondary",
+  //           shipped: "primary",
+  //           delivered: "success",
+  //           cancelled: "danger",
+  //         }[status];
+
+  //         return {
+  //           order_id: orderId,
+  //           user: user.user_name,
+  //           products: order.products.length.toString(),
+  //           total_price: "₹" + order.order_info.total_price,
+  //           order_date: formatTimestamp(order.order_info.order_date.toString()),
+  //           status: (
+  //             <div style={{ position: "relative", userSelect: "none" }}>
+  //               <div
+  //                 style={{
+  //                   width: "100%",
+  //                   display: "flex",
+  //                   alignItems: "center",
+  //                   justifyContent: "center",
+  //                 }}
+  //               >
+  //                 {isEditing === orderId ? (
+  //                   <div
+  //                     style={{
+  //                       width: "100%",
+  //                       display: "flex",
+  //                       alignItems: "center",
+  //                       justifyContent: "center",
+  //                     }}
+  //                   >
+  //                     <select
+  //                       value={orderStatuses[orderId] || status}
+  //                       onChange={async (e) => {
+  //                         const newStatus = e.target.value;
+  //                         // calling the API to update the status in the database
+  //                         const isUpdated = await updateOrderStatus(
+  //                           userId.toString(),
+  //                           orderId.toString(),
+  //                           newStatus
+  //                         );
+
+  //                         if (isUpdated) {
+  //                           setOrderStatuses((prev) => ({
+  //                             ...prev,
+  //                             [orderId]: newStatus,
+  //                           }));
+  //                         }
+  //                         setIsEditing("");
+  //                       }}
+  //                       style={{
+  //                         width: "100%",
+  //                         cursor: "pointer",
+  //                         marginRight: "5px",
+  //                         padding: "5px 10px",
+  //                         borderRadius: "8px",
+  //                         border: "1px solid #ccc",
+  //                         boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+  //                         transition: "border-color 0.3s, box-shadow 0.3s",
+  //                         color:
+  //                           {
+  //                             pending: "orange",
+  //                             processing: "blue",
+  //                             shipped: "green",
+  //                             delivered: "darkgreen",
+  //                             cancelled: "red",
+  //                           }[orderStatuses[orderId] || status] || "white",
+  //                       }}
+  //                     >
+  //                       <option
+  //                         value="pending"
+  //                         style={{ color: "white", backgroundColor: "orange" }}
+  //                       >
+  //                         Pending
+  //                       </option>
+  //                       <option
+  //                         value="processing"
+  //                         style={{ color: "white", backgroundColor: "blue" }}
+  //                       >
+  //                         Processing
+  //                       </option>
+  //                       <option
+  //                         value="shipped"
+  //                         style={{ color: "white", backgroundColor: "green" }}
+  //                       >
+  //                         Shipped
+  //                       </option>
+  //                       <option
+  //                         value="delivered"
+  //                         style={{
+  //                           color: "white",
+  //                           backgroundColor: "darkgreen",
+  //                         }}
+  //                       >
+  //                         Delivered
+  //                       </option>
+  //                       <option
+  //                         value="cancelled"
+  //                         style={{ color: "white", backgroundColor: "red" }}
+  //                       >
+  //                         Cancelled
+  //                       </option>
+  //                     </select>
+  //                     <span
+  //                       onClick={() => setIsEditing("")}
+  //                       title="Cancel"
+  //                       style={{
+  //                         color: "red",
+  //                         fontSize: "20px",
+  //                         cursor: "pointer",
+  //                       }}
+  //                     >
+  //                       X
+  //                     </span>
+  //                   </div>
+  //                 ) : (
+  //                   <div
+  //                     title="Update Status"
+  //                     onClick={() => setIsEditing(orderId)}
+  //                     style={{
+  //                       width: "100%",
+  //                       display: "flex",
+  //                       alignItems: "center",
+  //                       justifyContent: "center",
+  //                       cursor: "pointer",
+  //                     }}
+  //                   >
+  //                     <Badge
+  //                       title={capitalizeHeader(status)}
+  //                       color={statusColor}
+  //                       style={{
+  //                         width: "100%",
+  //                         cursor: "pointer",
+  //                         marginRight: "5px",
+  //                       }}
+  //                     >
+  //                       {capitalizeHeader(status)}
+  //                     </Badge>
+  //                     <i className="fa fa-pencil"></i>
+  //                   </div>
+  //                 )}
+  //               </div>
+  //             </div>
+  //           ),
+  //         };
+  //       })
+  //     )
+  //     .sort(
+  //       (a, b) =>
+  //         new Date(b.order_date).getTime() - new Date(a.order_date).getTime()
+  //     );
 
   return (
     <Fragment>
