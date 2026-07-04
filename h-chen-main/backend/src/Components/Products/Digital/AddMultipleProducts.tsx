@@ -147,208 +147,119 @@ const AddMultipleProducts = () => {
 
     setIsUploading(true);
 
-  //   try {
-  //     Papa.parse(file, {
-  //       complete: (results) => {
-  //         if (results.errors.length > 0) {
-  //           toast.error("Error parsing CSV file");
-  //           console.error(results.errors);
-  //           return;
-  //         }
+    try {
+      Papa.parse(file, {
+        complete: (results) => {
+          if (results.errors.length > 0) {
+            toast.error("Error parsing CSV file");
+            console.error(results.errors);
+            return;
+          }
 
-  //         const csvData = results.data as any[];
-  //         const headers = Object.keys(csvData[0]);
-  //         // const requiredHeaders = [
-  //         //   "sku",
-  //         //   "title",
-  //         //   "price",
-  //         //   "brand",
-  //         //   "sell_on_google_quantity",
-  //         //   "isSingleVariantProduct",
-  //         //   // Add new fields here as optional for validation
-  //         //   "heroBanner",
-  //         //   "dailyRitual",
-  //         //   "ingredientHighlights",
-  //         // ];
-  //         const requiredHeaders = [
-  //           "title",
-  //           "description",
-  //           "category",
-  //           "price",
-  //           "stock",
-  //           "colors",
-  //           "sizes",
-  //           "images",
-  //         ];
+          const csvData = results.data as any[];
+          const headers = Object.keys(csvData[0]);
+          // const requiredHeaders = [
+          //   "sku",
+          //   "title",
+          //   "price",
+          //   "brand",
+          //   "sell_on_google_quantity",
+          //   "isSingleVariantProduct",
+          //   // Add new fields here as optional for validation
+          //   "heroBanner",
+          //   "dailyRitual",
+          //   "ingredientHighlights",
+          // ];
+          const requiredHeaders = [
+            "title",
+            "description",
+            "category",
+            "price",
+            "stock",
+            "colors",
+            "sizes",
+            "images",
+          ];
 
-  //         const missingHeaders = requiredHeaders.filter(
-  //           (header) => !headers.includes(header)
-  //         );
-
-  //         if (missingHeaders.length > 0) {
-  //           toast.error(
-  //             `Missing required columns: ${missingHeaders.join(", ")}`
-  //           );
-  //           return;
-  //         }
-
-  //         // const parsedProducts = csvData.map((row, index) => ({
-  //         //   sku: row["sku"] || "",
-  //         //   title: row["title"] || "",
-  //         //   new: row["new"] === "true",
-  //         //   description: row["description"] || "",
-  //         //   category: parseCategory(row["category"]),
-  //         //   brand: row["brand"] || "",
-  //         //   price: Number(row["price"]) || 0,
-  //         //   salePrice: Number(row["salePrice"]) || 0,
-  //         //   discount: Number(row["discount"]) || undefined,
-  //         //   sell_on_google_quantity:
-  //         //     Number(row["sell_on_google_quantity"]) || 0,
-  //         //   bestBefore: row["bestBefore"] || "",
-  //         //   directions: parseArray(row["directions"]),
-  //         //   ingredients: parseArray(row["ingredients"]),
-  //         //   benefits: parseArray(row["benefits"]),
-  //         //   faqs: parseFaqs(row["faqs"]),
-  //         //   additionalInfo: parseAdditionalInfo(row["additionalInfo"]),
-  //         //   ratings: Number(row["ratings"]) || 0,
-  //         //   reviews_number: Number(row["reviews_number"]) || 0,
-  //         //   isSingleVariantProduct:
-  //         //     Boolean(row["isSingleVariantProduct"]) || false,
-  //         //   variants: parseVariants(row["variants"]),
-  //         //   // Parse new fields
-  //         //   heroBanner: parseHeroBanner(row["heroBanner"]),
-  //         //   dailyRitual: parseDailyRitual(row["dailyRitual"]),
-  //         //   ingredientHighlights: parseIngredientHighlights(
-  //         //     row["ingredientHighlights"]
-  //         //   ),
-  //         // }));
-  //         const parsedProducts = csvData.map((row) => ({
-  //           title: row.title || "",
-  //           description: row.description || "",
-  //           category: row.category || "",
-  //           price: Number(row.price) || 0,
-  //           stock: Number(row.stock) || 0,
-
-  //           colors: row.colors
-  //             ? row.colors.split(",").map((x: string) => x.trim())
-  //             : [],
-
-  //           sizes: row.sizes
-  //             ? row.sizes.split(",").map((x: string) => x.trim())
-  //             : [],
-
-  //           images: row.images
-  //             ? row.images.split(",").map((x: string) => x.trim())
-  //             : [],
-  //         }));
-  //         setProducts(parsedProducts);
-  //       },
-  //       error: (error) => {
-  //         toast.error("Something went wrong, please reupload the file");
-  //         console.error(error.message);
-  //       },
-  //       header: true,
-  //       skipEmptyLines: true,
-  //       dynamicTyping: true,
-  //       delimiter: "\t", 
-  //     });
-  //   } catch (err) {
-  //     toast.error("Failed to process file");
-  //     console.error(err);
-  //   } finally {
-  //     setIsUploading(false);
-  //   }
-  // };
-try {
-  setIsUploading(true);
-
-  Papa.parse(file, {
-    header: true,
-    skipEmptyLines: true,
-    dynamicTyping: true,
-    delimiter: "\t",
-
-    complete: (results) => {
-      try {
-        if (results.errors && results.errors.length > 0) {
-          toast.error("Error parsing CSV file");
-          console.error(results.errors);
-          return;
-        }
-
-        const csvData = results.data as any[];
-
-        if (!csvData || csvData.length === 0) {
-          toast.error("CSV file is empty or invalid");
-          return;
-        }
-
-        const headers = Object.keys(csvData[0]);
-
-        const requiredHeaders = [
-          "title",
-          "description",
-          "category",
-          "price",
-          "stock",
-          "colors",
-          "sizes",
-          "images",
-        ];
-
-        const missingHeaders = requiredHeaders.filter(
-          (header) => !headers.includes(header)
-        );
-
-        if (missingHeaders.length > 0) {
-          toast.error(
-            `Missing required columns: ${missingHeaders.join(", ")}`
+          const missingHeaders = requiredHeaders.filter(
+            (header) => !headers.includes(header)
           );
-          return;
-        }
 
-        const parsedProducts = csvData.map((row: any) => ({
-          title: row.title || "",
-          description: row.description || "",
-          category: row.category || "",
-          price: Number(row.price) || 0,
-          stock: Number(row.stock) || 0,
+          if (missingHeaders.length > 0) {
+            toast.error(
+              `Missing required columns: ${missingHeaders.join(", ")}`
+            );
+            return;
+          }
 
-          colors: row.colors
-            ? String(row.colors).split(",").map((x: string) => x.trim())
-            : [],
+          // const parsedProducts = csvData.map((row, index) => ({
+          //   sku: row["sku"] || "",
+          //   title: row["title"] || "",
+          //   new: row["new"] === "true",
+          //   description: row["description"] || "",
+          //   category: parseCategory(row["category"]),
+          //   brand: row["brand"] || "",
+          //   price: Number(row["price"]) || 0,
+          //   salePrice: Number(row["salePrice"]) || 0,
+          //   discount: Number(row["discount"]) || undefined,
+          //   sell_on_google_quantity:
+          //     Number(row["sell_on_google_quantity"]) || 0,
+          //   bestBefore: row["bestBefore"] || "",
+          //   directions: parseArray(row["directions"]),
+          //   ingredients: parseArray(row["ingredients"]),
+          //   benefits: parseArray(row["benefits"]),
+          //   faqs: parseFaqs(row["faqs"]),
+          //   additionalInfo: parseAdditionalInfo(row["additionalInfo"]),
+          //   ratings: Number(row["ratings"]) || 0,
+          //   reviews_number: Number(row["reviews_number"]) || 0,
+          //   isSingleVariantProduct:
+          //     Boolean(row["isSingleVariantProduct"]) || false,
+          //   variants: parseVariants(row["variants"]),
+          //   // Parse new fields
+          //   heroBanner: parseHeroBanner(row["heroBanner"]),
+          //   dailyRitual: parseDailyRitual(row["dailyRitual"]),
+          //   ingredientHighlights: parseIngredientHighlights(
+          //     row["ingredientHighlights"]
+          //   ),
+          // }));
+          const parsedProducts = csvData.map((row) => ({
+            title: row.title || "",
+            description: row.description || "",
+            category: row.category || "",
+            price: Number(row.price) || 0,
+            stock: Number(row.stock) || 0,
 
-          sizes: row.sizes
-            ? String(row.sizes).split(",").map((x: string) => x.trim())
-            : [],
+            colors: row.colors
+              ? row.colors.split(",").map((x: string) => x.trim())
+              : [],
 
-          images: row.images
-            ? String(row.images).split(",").map((x: string) => x.trim())
-            : [],
-        }));
+            sizes: row.sizes
+              ? row.sizes.split(",").map((x: string) => x.trim())
+              : [],
 
-        console.log("PARSED PRODUCTS:", parsedProducts);
-
-        setProducts(parsedProducts);
-      } catch (err) {
-        console.error(err);
-        toast.error("Error while processing CSV data");
-      } finally {
-        setIsUploading(false);
-      }
-    },
-
-    error: (error) => {
-      console.error(error);
-      toast.error("Something went wrong while parsing CSV");
+            images: row.images
+              ? row.images.split(",").map((x: string) => x.trim())
+              : [],
+          }));
+          setProducts(parsedProducts);
+        },
+        error: (error) => {
+          toast.error("Something went wrong, please reupload the file");
+          console.error(error.message);
+        },
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+        delimiter: "\t", 
+      });
+    } catch (err) {
+      toast.error("Failed to process file");
+      console.error(err);
+    } finally {
       setIsUploading(false);
-    },
-  });
-} catch (err) {
-  console.error(err);
-  toast.error("Failed to process file");
-  setIsUploading(false);
-}
+    }
+  };
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -621,5 +532,5 @@ try {
     </Fragment>
   );
 };
-}
-export default AddMultipleProducts
+
+export default AddMultipleProducts;
