@@ -422,9 +422,8 @@ export const ProductManagementUI: React.FC<ProductManagementUIProps> = ({
                         onClick={() =>
                           !isSelected && handleProductSelect(product)
                         }
-                        className={`border-0 mb-2 rounded ${
-                          isSelected ? "bg-light" : "hover-shadow"
-                        }`}
+                        className={`border-0 mb-2 rounded ${isSelected ? "bg-light" : "hover-shadow"
+                          }`}
                         style={{
                           cursor: isSelected ? "not-allowed" : "pointer",
                           transition: "all 0.2s ease",
@@ -467,8 +466,14 @@ export const ProductManagementUI: React.FC<ProductManagementUIProps> = ({
           <Card>
             <CardBody>
               <h4>Selected Products</h4>
-              <DndContext
+              {/* <DndContext
                 // sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              > */}
+              <DndContext
+                sensors={sensors}
+                modifiers={[restrictToVerticalAxis]}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
               >
