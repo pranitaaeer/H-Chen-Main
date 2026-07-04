@@ -8,8 +8,8 @@ export const GET = async (request: NextRequest) => {
     await connectToMongoDB();
 
     const orders = await Order.find({})
-  .populate("user", "name email")
-  .populate("items.product", "title images");
+  // .populate("user", "name email")
+  // .populate("items.product", "title images");
 
     revalidatePath(request.url);
     return NextResponse.json(orders, { status: 200 });
