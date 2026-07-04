@@ -320,7 +320,7 @@ export const ProductManagementUI: React.FC<ProductManagementUIProps> = ({
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    // useSensor(PointerSensor),
     useSensor(KeyboardSensor)
   );
 
@@ -468,7 +468,7 @@ export const ProductManagementUI: React.FC<ProductManagementUIProps> = ({
             <CardBody>
               <h4>Selected Products</h4>
               <DndContext
-                sensors={sensors}
+                // sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
               >
