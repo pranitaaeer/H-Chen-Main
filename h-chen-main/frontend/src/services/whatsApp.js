@@ -1,5 +1,5 @@
-const baseURL = import.meta.env.VITE_BASE_URL || "https://h-chen.vercel.app";
-const mobileNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "919997690669"; // Replace with your WhatsApp number
+const baseURL = import.meta.env.VITE_SERVER_BASE_URL || "https://h-chen-main.vercel.app";
+const mobileNumber = import.meta.env.VITE_WHATSAPP_NUMBER || " "; // Replace with your WhatsApp number
 // const baseURL = import.meta.env.VITE_BASE_URL;
 // const mobileNumber = import.meta.env.VITE_WHATSAPP_NUMBER; // Replace with your WhatsApp number
 
