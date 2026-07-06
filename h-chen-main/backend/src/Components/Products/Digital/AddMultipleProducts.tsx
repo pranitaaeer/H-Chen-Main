@@ -250,7 +250,7 @@ const AddMultipleProducts = () => {
         header: true,
         skipEmptyLines: true,
         dynamicTyping: true,
-        delimiter: "\t", 
+        delimiter: ",", 
       });
     } catch (err) {
       toast.error("Failed to process file");
