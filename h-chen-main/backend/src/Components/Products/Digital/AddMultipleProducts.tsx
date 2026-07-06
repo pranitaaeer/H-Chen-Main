@@ -406,23 +406,7 @@ const AddMultipleProducts = () => {
       } else {
         toast.error("Failed to save products");
       }
-    //   const response = await fetch("/api/products/create/create-multiple", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(products),
-    //   });
-
-    //   const data = await response.json();
-
-    //   console.log("SAVE RESPONSE:", data);
-
-    //   if (!response.ok) {
-    //     toast.error(data.message || "Save failed");
-    //     return;
-    //   }
-
-    //   toast.success(data.message);
-    //   setProducts([]);
+    
     } catch (error) {
       toast.error("An error occurred while saving products");
       console.error(error);
@@ -446,7 +430,7 @@ const AddMultipleProducts = () => {
             >
               Download sample.csv
             </Link>
-            {/* {products.length > 0 && ( */}
+            {products.length > 0 && ( 
               <button
                 onClick={handleSaveProducts}
                 className="btn btn-secondary"
@@ -454,7 +438,7 @@ const AddMultipleProducts = () => {
               >
                 {isSaving ? "Saving..." : "Save"}
               </button>
-            {/* )} */}
+            )}
             <Link
               href="/en/products/digital/digital-product-list"
               className="btn btn-danger"
