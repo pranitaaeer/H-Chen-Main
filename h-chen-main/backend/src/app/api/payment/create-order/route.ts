@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
         key: process.env.RAZORPAY_KEY_ID,
+        razorpayOrder,
       },
       { status: 200 }
     );
