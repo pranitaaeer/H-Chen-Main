@@ -11,56 +11,77 @@ function Order() {
 
 
   const loadRazorpayScript = () => {
-  return new Promise((resolve) => {
-    // Agar script pehle se loaded hai
-    console.log("Razorpay Script:", window.Razorpay);
-    if (window.Razorpay) {
-      resolve(true);
-      return;
-    }
+    return new Promise((resolve) => {
+      // Agar script pehle se loaded hai
+      console.log("Razorpay Script:", window.Razorpay);
+      if (window.Razorpay) {
+        resolve(true);
+        return;
+      }
 
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
 
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
 
-    document.body.appendChild(script);
-  });
-};
+      document.body.appendChild(script);
+    });
+  };
 
   useEffect(() => {
-  dispatch(getAllOrders());
+    dispatch(getAllOrders());
 
-  loadRazorpayScript();
-}, [dispatch]);
+    loadRazorpayScript();
+  }, [dispatch]);
 
-  
 
- const handlePayment = async (order) => {
-  try {
-    const { data } = await axios.post(
+
+  const handlePayment = async (order) => {
+    try {
+      const { data } = await axios.post(
         `${import.meta.env.VITE_SERVER_BASE_URL}/api/payment/create-order`,
-      {
-        orderId: order._id,
+        {
+          orderId: order._id,
+        }
+      );
+
+      console.log("Create Order Response:", data);
+
+      if (!data.success) {
+        alert(data.message);
+        return;
       }
-    );
 
-    console.log("Create Order Response:", data);
+      // Next step me Razorpay popup open karenge
+      console.log("Razorpay Order Created:", data);
 
-    if (!data.success) {
-      alert(data.message);
-      return;
+      const options = {
+        key: data.key,
+        amount: data.amount,
+        currency: data.currency,
+        name: "H-Chen",
+        description: "Order Payment",
+
+        order_id: data.orderId,
+
+        handler: async function (response) {
+          console.log("Payment Success:", response);
+        },
+
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+
+      razorpay.open();
+    } catch (err) {
+      console.error(err);
     }
-
-    // Next step me Razorpay popup open karenge
-    console.log("Razorpay Order Created:", data);
-
-  } catch (err) {
-    console.error(err);
-  }
-};
+  };
 
   if (loading) {
     return <p className="text-center mt-5 fs-5">Loading your orders...</p>;
