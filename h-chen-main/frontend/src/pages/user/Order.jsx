@@ -9,7 +9,6 @@ function Order() {
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.order);
 
-console.log(window.location.origin);
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -41,6 +40,13 @@ console.log(window.location.origin);
 
   const handlePayment = async (order) => {
     try {
+      const res = await loadRazorpayScript();
+
+      if (!res) {
+        alert("Razorpay SDK failed to load");
+        return;
+      }
+
       const { data } = await axios.post(
         `${import.meta.env.VITE_SERVER_BASE_URL}/api/payment/create-order`,
         {
@@ -48,15 +54,14 @@ console.log(window.location.origin);
         }
       );
 
-      console.log("Create Order Response:", data);
+
 
       if (!data.success) {
         alert(data.message);
         return;
       }
 
-      // Next step me Razorpay popup open karenge
-      console.log("Razorpay Order Created:", data);
+
 
       const options = {
         key: data.key,
@@ -74,7 +79,7 @@ console.log(window.location.origin);
         theme: {
           color: "#3399cc",
         },
-         modal: {
+        modal: {
           ondismiss: function () {
             console.log("Checkout Closed");
           }
@@ -85,10 +90,16 @@ console.log(window.location.origin);
           email: "abc@gmail.com",
           contact: "9999999999"
         },
+        retry: {
+          enabled: false,
+        },
+        notes: {
+          orderId: order._id
+        },
       };
 
       const razorpay = new window.Razorpay(options);
-
+      console.log("Razorpay Options:", options);
       razorpay.open();
     } catch (err) {
       console.error(err);
