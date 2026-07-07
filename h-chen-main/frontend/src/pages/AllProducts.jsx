@@ -69,7 +69,7 @@ function AllProducts() {
     setFilters({
       category: category ? [category.toLowerCase()] : [],
       color: [],
-      price: { min: 100, max: 5000 },
+      price: { min: 0, max: 5000 },
     });
   };
 
