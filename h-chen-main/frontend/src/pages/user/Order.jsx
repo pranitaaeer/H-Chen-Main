@@ -41,7 +41,7 @@ function Order() {
  const handlePayment = async (order) => {
   try {
     const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/payment/create-order`,
+        `${import.meta.env.VITE_SERVER_BASE_URL}/api/payment/create-order`,
       {
         orderId: order._id,
       }
