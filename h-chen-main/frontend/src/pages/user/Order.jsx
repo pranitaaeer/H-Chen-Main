@@ -2,15 +2,65 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../store/orderSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Order() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.order);
 
+
+  const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    // Agar script pehle se loaded hai
+    console.log("Razorpay Script:", window.Razorpay);
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+
+    document.body.appendChild(script);
+  });
+};
+
   useEffect(() => {
-    dispatch(getAllOrders());
-  }, [dispatch]);
+  dispatch(getAllOrders());
+
+  loadRazorpayScript();
+}, [dispatch]);
+
+  
+
+ const handlePayment = async (order) => {
+  try {
+    const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/payment/create-order`,
+      {
+        orderId: order._id,
+      }
+    );
+
+    console.log("Create Order Response:", data);
+
+    if (!data.success) {
+      alert(data.message);
+      return;
+    }
+
+    // Next step me Razorpay popup open karenge
+    console.log("Razorpay Order Created:", data);
+
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   if (loading) {
     return <p className="text-center mt-5 fs-5">Loading your orders...</p>;
@@ -47,15 +97,14 @@ function Order() {
                     </div>
                     <div className="text-end">
                       <span
-                        className={`badge px-3 py-2 fs-6 rounded-pill ${
-                          order.status === "Delivered"
-                            ? "bg-success"
-                            : order.status === "Pending"
-                              ? "bg-warning text-dark"
-                              : order.status === "Processing"
-                                ? "bg-info text-dark"
-                                : "bg-secondary"
-                        }`}
+                        className={`badge px-3 py-2 fs-6 rounded-pill ${order.status === "delivered"
+                          ? "bg-success"
+                          : order.status === "pending"
+                            ? "bg-warning text-dark"
+                            : order.status === "processing"
+                              ? "bg-info text-dark"
+                              : "bg-secondary"
+                          }`}
                       >
                         {order.status}
                       </span>
@@ -107,6 +156,20 @@ function Order() {
                     ))}
                   </ul>
 
+                  <div className="mt-3 d-flex justify-content-end gap-2">
+                    {order.paymentStatus === "pending" ? (
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handlePayment(order)}
+                      >
+                        💳 Pay Now
+                      </button>
+                    ) : (
+                      <button className="btn btn-outline-success" disabled>
+                        ✔ Paid
+                      </button>
+                    )}
+                  </div>
                   {/* Footer */}
                   {/* <div className="mt-3 text-end">
                     <button className="btn btn-outline-primary btn-sm">
