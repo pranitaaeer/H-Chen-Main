@@ -6,7 +6,7 @@ import Order from "@/models/Order";
 
 export const runtime = "nodejs";
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     await connectToMongoDB();
 
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-    } = await req.json();
+    } = await request.json();
 
     // Validate request
     if (
