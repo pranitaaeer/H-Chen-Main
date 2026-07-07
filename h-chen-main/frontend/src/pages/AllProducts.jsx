@@ -10,7 +10,7 @@ function AllProducts() {
   const [filters, setFilters] = useState({
     category: [],
     color: [],
-    price: { min: 100, max: 5000 },
+    price: { min: 0, max: 5000 },
   });
 
   const [products, setProducts] = useState([]);
