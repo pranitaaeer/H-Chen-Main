@@ -9,6 +9,7 @@ function Order() {
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.order);
 
+console.log(window.location.origin);
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -72,6 +73,17 @@ function Order() {
 
         theme: {
           color: "#3399cc",
+        },
+         modal: {
+          ondismiss: function () {
+            console.log("Checkout Closed");
+          }
+        },
+
+        prefill: {
+          name: "Pranita",
+          email: "abc@gmail.com",
+          contact: "9999999999"
         },
       };
 
