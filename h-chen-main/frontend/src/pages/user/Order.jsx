@@ -1,15 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrders } from "../../store/orderSlice";
+import { getAllOrders } from "../../store/orderSlice.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getTokenData } from "../../store/authSlice.js";
 
 function Order() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.order);
-const { userData } = useSelector((state) => state.auth);
-console.log("User Data:", userData); // Debugging line
+
+
+  const dispatch = useDispatch();
+
+  const { userData, token } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!userData && token) {
+      dispatch(getTokenData(token));
+    }
+  }, [dispatch, userData, token]);
+  console.log("User Data:", userData); // Debugging line
+  
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
       // Agar script pehle se loaded hai
