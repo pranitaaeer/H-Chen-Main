@@ -64,41 +64,59 @@ function Order() {
 
 
       const options = {
-        key: data.key,
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: data.amount,
         currency: data.currency,
         name: "H-Chen",
         description: "Order Payment",
 
         order_id: data.orderId,
-
+        // callback_url: `${import.meta.env.VITE_SERVER_BASE_URL}api/payment/verify`,
         handler: async function (response) {
-          console.log("Payment Success:", response);
-        },
 
-        theme: {
-          color: "#3399cc",
-        },
-        modal: {
-          ondismiss: function () {
-            console.log("Checkout Closed");
+          const verify = await axios.post(
+            `${import.meta.env.VITE_SERVER_BASE_URL}/api/payment/verify`,
+            {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }
+          );
+
+          console.log(verify.data);
+
+          if (verify.data.success) {
+            alert("Payment Successful");
+            dispatch(getAllOrders());
+          } else {
+            alert("Payment Verification Failed");
           }
         },
-
         prefill: {
           name: "Pranita",
-          email: "abc@gmail.com",
-          contact: "9999999999"
-        },
-        retry: {
-          enabled: false,
+          email: "aeerpranita@gmail.com",
+          contact: "+917972285617"
         },
         notes: {
           orderId: order._id
         },
+        theme: {
+          color: "#3399cc",
+        },
+
+
       };
 
       const razorpay = new window.Razorpay(options);
+      razorpay.on('payment.failed', function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+      });
       console.log("Razorpay Options:", options);
       razorpay.open();
     } catch (err) {
