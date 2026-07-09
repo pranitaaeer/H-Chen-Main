@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"; // ✅ to read /shop/:category
 import FilterSidebar from "../components/FilterSidebar";
 import ProductList from "../components/ProductList";
 import { getProducts } from "../services/productService";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 function AllProducts() {
   const { category } = useParams(); // ✅ read category from URL if present
@@ -117,12 +118,16 @@ function AllProducts() {
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   if (loadingProducts) {
-    return (
-      <div className="text-center mt-5">
-        Loading Products...
+  return (
+    <div className="container mt-5">
+      <div className="row">
+        {Array.from({ length: 12 }).map((_, index) => (
+          <ProductSkeleton key={index} />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
+}
   return (
     <div className="container mt-5">
       <div className="row">
@@ -141,7 +146,7 @@ function AllProducts() {
             {category ? category : "All Products"}
           </h2>
           {/* <p className="text-muted mb-4 col-md-6">tagline from backend</p> */}
-          <div className="mb-2 fw-bold">{filteredProducts.length} Products</div>
+          {!loadingProducts && <div className="mb-2 fw-bold">{filteredProducts.length} Products</div>}
           {/* <ProductList products={filteredProducts} /> */}
           <ProductList products={currentProducts} />
           <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
