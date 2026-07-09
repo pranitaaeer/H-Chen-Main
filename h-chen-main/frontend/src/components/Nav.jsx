@@ -121,7 +121,7 @@ function Nav() {
                   About
                 </Link>
               </li>
-             
+
 
               {/* Shop Dropdown (Desktop) */}
               <li className="nav-item dropdown hover-dropdown d-none d-lg-block">
@@ -193,7 +193,7 @@ function Nav() {
                   Contact
                 </Link>
               </li>
-               <Link
+              <Link
                 className="nav-link"
                 to="/chloes-ai"
                 onClick={closeMobileMenu}
@@ -204,7 +204,7 @@ function Nav() {
 
             {/* Desktop Right Side */}
             <div className="d-none d-lg-flex align-items-center">
-            
+
               <div className="d-flex align-items-center position-relative search-wrapper me-3">
                 <FaSearch className="text-dark me-2" />
                 <input
@@ -215,7 +215,14 @@ function Nav() {
                   className="search-input"
                 />
                 {searchQuery && (
-                  <ul className="list-group position-absolute w-100 mt-1 shadow-sm">
+                  <ul className="list-group position-absolute w-100 mt-1 shadow-sm" style={{
+                    top: "100%",
+                    left: 0,
+                    zIndex: 99999,
+                    background: "#fff",
+                    maxHeight: "300px",
+                    overflowY: "auto",
+                  }}>
                     {loadingProducts ? (
                       <li className="list-group-item text-center">
                         Loading...

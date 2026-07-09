@@ -86,6 +86,21 @@
   pointer-events: none;
 }
 
+.search-wrapper {
+  position: relative;
+  z-index: 9999;
+}
+
+.search-wrapper .list-group {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 99999;
+  max-height: 300px;
+  overflow-y: auto;
+}
 /* Mobile tweaks */
 @media (max-width: 576px) {
   .headline {
