@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 export default function Login() {
   const location = useLocation();
   const redirectPath = location.state?.from?.pathname || "/";
-  console.log("Redirect Path:", import.meta.env.VITE_SERVER_BASE_URL); // Debugging line
   const handleLogin = () => {
     // send redirect path to backend
     window.location.href = `${import.meta.env.VITE_SERVER_BASE_URL}/api/auth/google?redirect=${redirectPath}`;

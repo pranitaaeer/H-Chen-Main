@@ -8,8 +8,8 @@ function Order() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.order);
-
-
+const { userData } = useSelector((state) => state.auth);
+console.log("User Data:", userData); // Debugging line
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
       // Agar script pehle se loaded hai
