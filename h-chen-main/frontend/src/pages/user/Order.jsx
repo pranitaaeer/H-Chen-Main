@@ -4,6 +4,7 @@ import { getAllOrders } from "../../store/orderSlice.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getTokenData } from "../../store/authSlice.js";
+import { toast } from "react-toastify";
 
 function Order() {
   const navigate = useNavigate();
@@ -20,12 +21,10 @@ function Order() {
       dispatch(getTokenData(token));
     }
   }, [dispatch, userData, token]);
-  console.log("User Data:", userData); // Debugging line
-  
+
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
       // Agar script pehle se loaded hai
-      console.log("Razorpay Script:", window.Razorpay);
       if (window.Razorpay) {
         resolve(true);
         return;
@@ -55,7 +54,6 @@ function Order() {
       const res = await loadRazorpayScript();
 
       if (!res) {
-        alert("Razorpay SDK failed to load");
         return;
       }
 
@@ -69,7 +67,7 @@ function Order() {
 
 
       if (!data.success) {
-        alert(data.message);
+         toast.error(data.message || "Failed to create order");
         return;
       }
 
@@ -95,19 +93,17 @@ function Order() {
             }
           );
 
-          console.log(verify.data);
 
           if (verify.data.success) {
-            alert("Payment Successful");
+            toast.success("Payment Successful");
             dispatch(getAllOrders());
           } else {
-            alert("Payment Verification Failed");
+            toast.error("Payment Verification Failed");
           }
         },
         prefill: {
-          name: "Pranita",
-          email: "aeerpranita@gmail.com",
-          contact: "+917972285617"
+          name: userData?.name || "",
+          email: userData?.email || "",
         },
         notes: {
           orderId: order._id
@@ -120,15 +116,7 @@ function Order() {
       };
 
       const razorpay = new window.Razorpay(options);
-      razorpay.on('payment.failed', function (response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-      });
+
       console.log("Razorpay Options:", options);
       razorpay.open();
     } catch (err) {

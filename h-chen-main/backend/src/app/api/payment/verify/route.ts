@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { connectToMongoDB } from "@/lib/db";
 
 import Order from "@/models/Order";
-
+import razorpay from "@/lib/razorpay";
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
@@ -38,15 +38,15 @@ export async function POST(request: NextRequest) {
       .digest("hex");
 
     // Signature mismatch
-    // if (generatedSignature !== razorpay_signature) {
-    //   return NextResponse.json(
-    //     {
-    //       success: false,
-    //       message: "Invalid payment signature",
-    //     },
-    //     { status: 400 }
-    //   );
-    // }
+    if (generatedSignature !== razorpay_signature) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid payment signature",
+        },
+        { status: 400 }
+      );
+    }
 
     // Find order
     const order = await Order.findOne({
@@ -62,12 +62,15 @@ export async function POST(request: NextRequest) {
         { status: 404 }
       );
     }
+const payment = await razorpay.payments.fetch(
+  razorpay_payment_id
+);
 
     // Update order
     order.paymentStatus = "paid";
     order.razorpayPaymentId = razorpay_payment_id;
     order.razorpaySignature = razorpay_signature;
-    order.billingMethod = "razorpay";
+    order.billingMethod = payment.method;
 
     await order.save();
 

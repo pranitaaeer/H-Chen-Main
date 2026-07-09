@@ -49,7 +49,13 @@ const OrderSchema = new Schema(
 
     billingMethod: {
       type: String,
-      enum: ["cod", "razorpay"],
+      enum: ["cod", 
+        "card",
+        "upi",
+        "netbanking",
+        "wallet",
+        "emi",
+        "paylater"],
       default: "cod",
     },
 
@@ -58,7 +64,7 @@ const OrderSchema = new Schema(
       enum: ["pending", "paid", "failed"],
       default: "pending",
     },
-
+    
     razorpayPaymentId: {
       type: String,
       default: "",
