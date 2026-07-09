@@ -18,18 +18,18 @@ function AllProducts() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  
+
   const fetchProducts = async () => {
-  console.time("Fetch Products");
+    console.time("Fetch Products");
 
-  const res = await getProducts({});
+    const res = await getProducts({});
 
-  console.timeEnd("Fetch Products");
+    console.timeEnd("Fetch Products");
 
-  if (res) setProducts(res);
+    if (res) setProducts(res);
 
-  setLoadingProducts(false);
-};
+    setLoadingProducts(false);
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -117,17 +117,7 @@ function AllProducts() {
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  if (loadingProducts) {
-  return (
-    <div className="container mt-5">
-      <div className="row">
-        {Array.from({ length: 12 }).map((_, index) => (
-          <ProductSkeleton key={index} />
-        ))}
-      </div>
-    </div>
-  );
-}
+ 
   return (
     <div className="container mt-5">
       <div className="row">
@@ -148,7 +138,19 @@ function AllProducts() {
           {/* <p className="text-muted mb-4 col-md-6">tagline from backend</p> */}
           {!loadingProducts && <div className="mb-2 fw-bold">{filteredProducts.length} Products</div>}
           {/* <ProductList products={filteredProducts} /> */}
-          <ProductList products={currentProducts} />
+          {loadingProducts ? (
+            <>
+              <div className="container mt-5">
+                <div className="row">
+                  {Array.from({ length: 12 }).map((_, index) => (
+                    <ProductSkeleton key={index} />
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+            <ProductList products={currentProducts} />
           <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
             <button
               className="btn btn-outline-dark"
@@ -170,6 +172,9 @@ function AllProducts() {
               Next →
             </button>
           </div>
+            </>
+          )}
+          
         </div>
       </div>
     </div>
