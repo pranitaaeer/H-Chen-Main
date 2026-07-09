@@ -17,13 +17,18 @@ function AllProducts() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  ;
+  
   const fetchProducts = async () => {
-    const res = await getProducts({});
+  console.time("Fetch Products");
 
-    if (res) setProducts(res);
-    setLoadingProducts(false);
-  };
+  const res = await getProducts({});
+
+  console.timeEnd("Fetch Products");
+
+  if (res) setProducts(res);
+
+  setLoadingProducts(false);
+};
 
   useEffect(() => {
     fetchProducts();
@@ -31,7 +36,7 @@ function AllProducts() {
 
   // ✅ Update only category when route changes, keep colors/price intact
   useEffect(() => {
-     setCurrentPage(1);
+    setCurrentPage(1);
     if (category) {
       setFilters((prev) => ({
         ...prev,
@@ -81,7 +86,7 @@ function AllProducts() {
   const filteredProducts = products.length
     ? products.filter((product) => {
 
-      
+
       const inCategory =
         filters.category.length === 0 ||
         filters.category.includes(product.category?.toLowerCase());
@@ -101,15 +106,23 @@ function AllProducts() {
     })
     : [];
 
-    const indexOfLastProduct = currentPage * productsPerPage;
-      const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-      const currentProducts = filteredProducts.slice(
-        indexOfFirstProduct,
-        indexOfLastProduct
-      );
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
-      const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  if (loadingProducts) {
+    return (
+      <div className="text-center mt-5">
+        Loading Products...
+      </div>
+    );
+  }
   return (
     <div className="container mt-5">
       <div className="row">
