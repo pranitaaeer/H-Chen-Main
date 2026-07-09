@@ -81,15 +81,7 @@ function AllProducts() {
   const filteredProducts = products.length
     ? products.filter((product) => {
 
-      const indexOfLastProduct = currentPage * productsPerPage;
-      const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-
-      const currentProducts = filteredProducts.slice(
-        indexOfFirstProduct,
-        indexOfLastProduct
-      );
-
-      const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+      
       const inCategory =
         filters.category.length === 0 ||
         filters.category.includes(product.category?.toLowerCase());
@@ -109,6 +101,15 @@ function AllProducts() {
     })
     : [];
 
+    const indexOfLastProduct = currentPage * productsPerPage;
+      const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+      const currentProducts = filteredProducts.slice(
+        indexOfFirstProduct,
+        indexOfLastProduct
+      );
+
+      const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   return (
     <div className="container mt-5">
       <div className="row">
