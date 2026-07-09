@@ -10,7 +10,7 @@ function AllProducts() {
   const [filters, setFilters] = useState({
     category: [],
     color: [],
-    price: { min: 0, max: 5000 },
+    price: { min: 100, max: 5000 },
   });
 
   const [products, setProducts] = useState([]);
@@ -18,7 +18,8 @@ function AllProducts() {
 
   const fetchProducts = async () => {
     const res = await getProducts({});
-    // console.log("Products:", res);
+    console.log("Products:", res);
+    console.log("Total Products from API:", res.length);
     if (res) setProducts(res);
     setLoadingProducts(false);
   };
