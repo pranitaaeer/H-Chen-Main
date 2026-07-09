@@ -6,7 +6,8 @@ import { getProducts } from "../services/productService";
 
 function AllProducts() {
   const { category } = useParams(); // ✅ read category from URL if present
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
   const [filters, setFilters] = useState({
     category: [],
     color: [],
@@ -16,10 +17,10 @@ function AllProducts() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
+  ;
   const fetchProducts = async () => {
     const res = await getProducts({});
-    console.log("Products:", res);
-    console.log("Total Products from API:", res.length);
+
     if (res) setProducts(res);
     setLoadingProducts(false);
   };
@@ -30,6 +31,7 @@ function AllProducts() {
 
   // ✅ Update only category when route changes, keep colors/price intact
   useEffect(() => {
+     setCurrentPage(1);
     if (category) {
       setFilters((prev) => ({
         ...prev,
@@ -64,6 +66,7 @@ function AllProducts() {
         [name]: value,
       };
     });
+    setCurrentPage(1);
   };
 
   const resetFilters = () => {
@@ -72,27 +75,38 @@ function AllProducts() {
       color: [],
       price: { min: 100, max: 5000 },
     });
+    setCurrentPage(1);
   };
 
   const filteredProducts = products.length
     ? products.filter((product) => {
-        const inCategory =
-          filters.category.length === 0 ||
-          filters.category.includes(product.category?.toLowerCase());
 
-        const inColor =
-          filters.color.length === 0 ||
-          (Array.isArray(product.colors) &&
-            product.colors.some(
-              (c) => c && filters.color.includes(c.toLowerCase())
-            ));
+      const indexOfLastProduct = currentPage * productsPerPage;
+      const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-        const inPriceRange =
-          product.price >= filters.price.min &&
-          product.price <= filters.price.max;
+      const currentProducts = filteredProducts.slice(
+        indexOfFirstProduct,
+        indexOfLastProduct
+      );
 
-        return inCategory && inColor && inPriceRange;
-      })
+      const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+      const inCategory =
+        filters.category.length === 0 ||
+        filters.category.includes(product.category?.toLowerCase());
+
+      const inColor =
+        filters.color.length === 0 ||
+        (Array.isArray(product.colors) &&
+          product.colors.some(
+            (c) => c && filters.color.includes(c.toLowerCase())
+          ));
+
+      const inPriceRange =
+        product.price >= filters.price.min &&
+        product.price <= filters.price.max;
+
+      return inCategory && inColor && inPriceRange;
+    })
     : [];
 
   return (
@@ -114,7 +128,29 @@ function AllProducts() {
           </h2>
           {/* <p className="text-muted mb-4 col-md-6">tagline from backend</p> */}
           <div className="mb-2 fw-bold">{filteredProducts.length} Products</div>
-          <ProductList products={filteredProducts} />
+          {/* <ProductList products={filteredProducts} /> */}
+          <ProductList products={currentProducts} />
+          <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
+            <button
+              className="btn btn-outline-dark"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              ← Previous
+            </button>
+
+            <span className="fw-bold">
+              Page {currentPage} of {totalPages}
+            </span>
+
+            <button
+              className="btn btn-outline-dark"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Next →
+            </button>
+          </div>
         </div>
       </div>
     </div>
