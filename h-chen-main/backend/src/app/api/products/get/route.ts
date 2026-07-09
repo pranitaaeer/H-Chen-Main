@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     const min = searchParams.get("priceMin");
     const max = searchParams.get("priceMax");
     const sortBy = searchParams.get("sortBy");
-    const limit = searchParams.get("limit") || 12;
+    const limit = searchParams.get("limit");
 
     const filter: any = {};
 
@@ -56,10 +56,13 @@ export async function GET(req: NextRequest) {
         sort = { createdAt: -1 };
         break;
     }
+    let query = Products.find(filter).sort(sort);
 
-    const products = await Products.find(filter)
-      .sort(sort)
-      .limit(Number(limit));
+    if (limit) {
+      query = query.limit(Number(limit));
+    }
+
+    const products = await query;
 
     return NextResponse.json({ success: true, data: products });
   } catch (error) {
