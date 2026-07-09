@@ -12,7 +12,6 @@ function Order() {
   const { orders, loading, error } = useSelector((state) => state.order);
 
 
-  const dispatch = useDispatch();
 
   const { userData, token } = useSelector((state) => state.auth);
 
