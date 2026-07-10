@@ -10,7 +10,6 @@ export const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASSWORD,
   },
 });
-
 const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
 const twilioServiceSid = process.env.TWILIO_SERVICE_SID;
 const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;

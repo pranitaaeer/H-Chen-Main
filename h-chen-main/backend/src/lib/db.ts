@@ -2,7 +2,6 @@ import mongoose, { Connection } from "mongoose";
 
 let cachedConnection: Connection | null = null;
 if (!process.env.MONGODB_URI) {
-  // console.log("process.env: ", process.env);
   throw new Error(
     "Please define the MONGODB_URI environment variable inside .env.local"
   );
