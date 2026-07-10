@@ -5,5 +5,4 @@ export const client = createClient({
   dataset: import.meta.env.VITE_SANITY_DATASET,
   useCdn: false,
   apiVersion: '2025-02-06',
-  token: import.meta.env.VITE_SANITY_TOKEN,
 })
